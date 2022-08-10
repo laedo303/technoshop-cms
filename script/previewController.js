@@ -9,11 +9,9 @@ const showPreview = (src) => {
 export const hidePreview = () => {
   preview.style.display = '';
   preview.src = '';
-  form.reset();
 }
 
 export const previewController = () => {
-  hidePreview();
   const imageFile = form.image;
 
   image.addEventListener('change', async () => {
