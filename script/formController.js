@@ -13,7 +13,6 @@ const updateCategory = async () => {
     option.value = cat;
     return option;
   });
-
   category.append(...categoryOption);
 };
 

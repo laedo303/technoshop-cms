@@ -1,4 +1,4 @@
-import { form } from './elems.js';
+import { form, modalTitle } from './elems.js';
 import { hidePreview } from './previewController.js';
 
 const openModal = (modal, classOpen) => {
@@ -11,14 +11,28 @@ export const closeModal = (modal, classOpen) => {
   hidePreview();
 };
 
-export const modalController = ({modal, btn, classOpen, classClose}) => {
-  btn.addEventListener('click', () => {
-    openModal(modal, classOpen);
-  });
+export const modalController = ({btn, delegation}) => {
+  if (btn) {
+    btn.addEventListener('click', () => {
+      modalTitle.textContent = 'Добавить новый товар';
+      openModal();
+    });
+  }
 
-  modal.addEventListener('click', ({target}) => {
-    if(target === modal || target.classList.contains(classClose)) {
-      closeModal(modal, classOpen)
-    }
-  })
+  if (delegation) {
+    delegation.parent.addEventListener('click', ({target}) => {
+      const goodsRow = target.closest(delegation.target);
+      const targetExclude = target.closest(delegation.targetExclude);
+
+      if (goodsRow && !targetExclude) {
+        openModal(goodsRow.dataset.id)
+      }
+    })
+  }
+
+  // modal.addEventListener('click', ({target}) => {
+  //   if(target === modal || target.classList.contains('btn-close')) {
+  //     closeModal()
+  //   }
+  // })
 };
